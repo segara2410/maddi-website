@@ -9,6 +9,14 @@ class Customer(models.Model):
   city = models.PositiveIntegerField()
   postal_code = models.IntegerField()
 
+class News(models.Model):
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  title = models.CharField(max_length=40)
+  body = models.TextField()
+  image = fields.ImageField(upload_to='news')
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
+
 class Category(models.Model):
   name = models.CharField(max_length=40)
 
@@ -28,6 +36,7 @@ class Courrier(models.Model):
 class Review(models.Model):
   user = models.ForeignKey(Customer, on_delete=models.CASCADE)
   item = models.ForeignKey(Item, on_delete=models.CASCADE)
+  description = models.TextField()
   rating = models.FloatField()
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)

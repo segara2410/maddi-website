@@ -8,6 +8,9 @@ class Customer(models.Model):
   address = models.CharField(max_length=250)
   city = models.PositiveIntegerField()
   postal_code = models.IntegerField()
+  
+  def __str__(self) :
+    return self.user.get_full_name()
 
 class News(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -17,8 +20,14 @@ class News(models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 
+  def __str__(self) :
+    return self.title
+
 class Category(models.Model):
   name = models.CharField(max_length=40)
+
+  def __str__(self) :
+    return self.name
 
 class Item(models.Model):
   name = models.CharField(max_length=40)
@@ -30,8 +39,14 @@ class Item(models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 
+  def __str__(self) :
+    return self.name
+
 class Courrier(models.Model):
   name = models.CharField(max_length=40)
+
+  def __str__(self) :
+    return self.name
 
 class Review(models.Model):
   customer = models.ForeignKey(Customer, on_delete=models.CASCADE)

@@ -34,7 +34,7 @@ class Courrier(models.Model):
   name = models.CharField(max_length=40)
 
 class Review(models.Model):
-  user = models.ForeignKey(Customer, on_delete=models.CASCADE)
+  customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
   item = models.ForeignKey(Item, on_delete=models.CASCADE)
   description = models.TextField()
   rating = models.FloatField()
@@ -42,7 +42,7 @@ class Review(models.Model):
   updated_at = models.DateTimeField(auto_now=True)
 
 class Purchase(models.Model):
-  user = models.ForeignKey(Customer, on_delete=models.CASCADE)
+  customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
   items = models.ManyToManyField('Item', through='Cart', through_fields=('purchase', 'item'))
   destination_address = models.CharField(max_length=250)
   destination_city = models.PositiveIntegerField()

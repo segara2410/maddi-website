@@ -1,2 +1,5 @@
+django
 django-material
+django-mysql
 django-smartfields
+mysqlclient

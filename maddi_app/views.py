@@ -1,6 +1,21 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
+from django.template import loader
 from django.http import HttpResponse
+from django import template
+
+from .models import Customer
 import http.client
+
+@login_required(login_url="/login/")
+def index(request):
+  return render(request, 'maddi_app/index.html')
+
+def login(request):
+  return render(request, 'accounts/login.html')
+
+def register(request):
+  return render(request, 'accounts/register.html')
 
 def province(request, id=None):
   conn = http.client.HTTPSConnection("api.rajaongkir.com")

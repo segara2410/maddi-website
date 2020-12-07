@@ -11,6 +11,21 @@ import http.client
 def index(request):
   return render(request, 'maddi_app/index.html')
 
+def shop(request):
+  return render(request, 'maddi_app/shop.html')
+
+def payment(request):
+  return render(request, 'maddi_app/payment.html')
+  
+def journal(request):
+  return render(request, 'maddi_app/journal.html')
+
+def about(request):
+  return render(request, 'maddi_app/about.html')
+
+def cart(request):
+  return render(request, 'maddi_app/cart.html')
+
 def login(request):
   return render(request, 'accounts/login.html')
 
@@ -60,3 +75,5 @@ def cost(request, id):
   data = res.read()
 
   return HttpResponse(data.decode("utf-8"))
+
+  

@@ -1,0 +1,24 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="w-full flex flex-wrap">
+    <div class="w-full md:w-1/2 flex flex-col">
+        <div>
+            <p class="mr-32 ml-32 mt-16" style="font-size: 50px; color: black;">Hello.</p>
+            <p class="text-justify mr-32 ml-32 mt-8" style="color: black;"><i>Maddi is a clothing brand with the aim of improving the economy and welfare of women in Indonesia. 
+                  All of our products are made with love and compassion from the hands of professional craft-women. 
+                  This business started from our attention to independent women who are tough as tailors and craft-women who do not have access and support in marketing their products more widely. 
+                  Every outfit we produce has a different story behind it. Some of the profits from our sales are used for education in the scope of health, welfare, and women's independence.​</i></p>
+            <p class="text-justify mr-32 ml-32 mt-8" style="color: black;">Maddi merupakan salah satu clothing brand dengan tujuan untuk meningkatkan perekonomian dan kesejahteraan wanita di Indonesia. 
+                  Semua produk kami dibuat dengan penuh cinta dan kasih sayang dari tangan-tangan wanita pengrajin yang profesional. 
+                  Bisnis ini dimulai dari perhatian kami pada wanita-wanita mandiri yang tangguh sebagai penjahit maupun pengrajin yang tidak memiliki akses dan dukungan dalam memasarkan produk mereka secara lebih luas. 
+                  Setiap baju yang kami hasilkan ada cerita yang berbeda dibaliknya. Sebagian keuntungan dari hasil penjualan kami gunakan untuk edukasi dalam lingkup kesehatan, kesejahteraan, dan kemandirian wanita.​</p>
+         </div>
+    </div>
+    <div class="w-1/2 shadow-2xl">
+        <img class="object-cover w-full h-screen hidden md:block" src="../../../static/images/about.png">
+    </div>
+</div>
+  {% endblock %}

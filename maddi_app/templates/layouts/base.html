@@ -6,12 +6,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tailwind CSS Skeleton</title>
+    <title>Maddi</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="">
 
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@1.4.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
+    </style>
   </head>
 
   <body class="text-gray-700 bg-white" style="font-family: 'Source Sans Pro', sans-serif">
@@ -19,6 +22,8 @@
     
     {% block content %}
     {% endblock %}
+
+    {% include 'includes/footer.html' %}
   </body>
 
 </html>

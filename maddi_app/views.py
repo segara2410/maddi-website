@@ -4,15 +4,18 @@ from django.template import loader
 from django.http import HttpResponse
 from django import template
 
-from .models import Customer
+from .models import *
 import http.client
 
-@login_required(login_url="/login/")
+# @login_required(login_url="/login/")
 def index(request):
   return render(request, 'maddi_app/index.html')
 
 def shop(request):
-  return render(request, 'maddi_app/shop.html')
+  items = Item.objects.all()
+  return render(request, 'maddi_app/shop.html', {
+    'items': items,
+  })
 
 def payment(request):
   return render(request, 'maddi_app/payment.html')

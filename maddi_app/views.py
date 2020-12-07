@@ -11,8 +11,14 @@ import http.client
 def index(request):
   return render(request, 'maddi_app/index.html')
 
-def abc(request):
-  return render(request, 'maddi_app/abc.html')
+def shop(request):
+  return render(request, 'maddi_app/shop.html')
+
+def payment(request):
+  return render(request, 'maddi_app/payment.html')
+  
+def journal(request):
+  return render(request, 'maddi_app/journal.html')
 
 def about(request):
   return render(request, 'maddi_app/about.html')

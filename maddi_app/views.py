@@ -1,8 +1,10 @@
+from django import template
+from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
-from django.http import HttpResponse
-from django import template
 
 from .models import *
 import http.client
@@ -29,11 +31,29 @@ def about(request):
 def cart(request):
   return render(request, 'maddi_app/cart.html')
 
-def login(request):
-  return render(request, 'accounts/login.html')
+def login_view(request):
+  if request.method == 'POST':
+    form = AuthenticationForm(data=request.POST)
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
 
-def register(request):
+    if user is not None:
+      login(request,user)
+      return redirect('/')
+
+    print(form)
+    return render(request, 'accounts/login.html', {'form':form})
+
+  form = AuthenticationForm()
+  return render(request, 'accounts/login.html', {'form':form})
+
+def register_view(request):
   return render(request, 'accounts/register.html')
+
+def logout_view(request):
+  logout(request)
+  return redirect('/')
 
 def province(request, id=None):
   conn = http.client.HTTPSConnection("api.rajaongkir.com")

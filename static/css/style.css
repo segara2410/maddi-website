@@ -51,11 +51,15 @@ input[type=email], select {
     background-color:rgba(173, 151, 115,var(--tw-bg-opacity));
   }
 
-  .bg-maddi-2 {
+  .bg-maddi-1:hover {
     --tw-bg-opacity:1;
     background-color:rgba(152, 130, 90, var(--tw-bg-opacity));
   }
-  .group:hover .group-hover\:bg-maddi-2{--tw-bg-opacity:1;background-color:rgba(152, 130, 90,var(--tw-bg-opacity))}
+
+  .bg-maddi-1:focus {
+    --tw-bg-opacity:1;
+    background-color:rgba(152, 130, 90, var(--tw-bg-opacity));
+  }
 
   .text-maddi-1{
     --tw-text-opacity:1;

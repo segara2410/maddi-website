@@ -1,5 +1,8 @@
+crispy-tailwind
 django
+django-heroku
 django-material
 django-mysql
 django-smartfields
+gunicorn
 mysqlclient

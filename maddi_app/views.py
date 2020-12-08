@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 
+from .forms import *
 from .models import *
 import http.client
 
@@ -18,6 +19,12 @@ def shop(request):
   return render(request, 'maddi_app/shop.html', {
     'items': items,
   })
+
+# def add_item(request):
+#   form = ItemForm()
+#   return render(request, 'maddi_app/item/add.html', {
+#     'form': form,
+#   })
 
 def payment(request):
   return render(request, 'maddi_app/payment.html')
@@ -98,5 +105,3 @@ def cost(request, id):
   data = res.read()
 
   return HttpResponse(data.decode("utf-8"))
-
-  

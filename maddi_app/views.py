@@ -34,6 +34,12 @@ def create_item_view(request):
     'form': form,
   })
 
+def retrieve_item_view(request, id):
+  item = Item.objects.get(pk=id)
+  return render(request, 'maddi_app/item/retrieve.html', {
+    'item': item,
+  })
+
 def payment(request):
   return render(request, 'maddi_app/payment.html')
   

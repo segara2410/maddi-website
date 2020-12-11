@@ -30,8 +30,14 @@ def create_item_view(request):
   else:
     form = ItemForm(None)
 
-  return render(request, 'maddi_app/item/add.html', {
+  return render(request, 'maddi_app/add.html', {
     'form': form,
+  })
+
+def retrieve_item_view(request, id):
+  item = Item.objects.get(pk=id)
+  return render(request, 'maddi_app/item/retrieve.html', {
+    'item': item,
   })
 
 def payment(request):

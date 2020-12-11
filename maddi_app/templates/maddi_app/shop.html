@@ -15,7 +15,7 @@
             </button>
           </div>
           <div class="px-5 py-3">
-            <h3 class="text-gray-700 uppercase">{{ item.name }}</h3>
+            <a href="{% url 'retrieve_item' id=item.id %}"><h3 class="text-gray-700 uppercase">{{ item.name }}</h3></a>
             <span class="text-gray-500 mt-2">Rp {{ item.price }}</span>
           </div>
         </div>

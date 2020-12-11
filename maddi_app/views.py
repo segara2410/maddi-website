@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 
+from .decorators import *
 from .forms import *
 from .models import *
 import http.client
@@ -20,11 +21,18 @@ def shop(request):
     'items': items,
   })
 
-# def add_item(request):
-#   form = ItemForm()
-#   return render(request, 'maddi_app/item/add.html', {
-#     'form': form,
-#   })
+def create_item_view(request):
+  if request.method == 'POST':
+    form = ItemForm(request.POST, request.FILES)
+    if form.is_valid():
+      form.save()
+      return redirect('shop')
+  else:
+    form = ItemForm(None)
+
+  return render(request, 'maddi_app/item/add.html', {
+    'form': form,
+  })
 
 def payment(request):
   return render(request, 'maddi_app/payment.html')
@@ -38,7 +46,11 @@ def about(request):
 def cart(request):
   return render(request, 'maddi_app/cart.html')
 
+@anonymous_required('index')
 def login_view(request):
+  if request.user.is_authenticated:
+      return redirect('index')
+
   if request.method == 'POST':
     form = AuthenticationForm(data=request.POST)
     username = request.POST['username']
@@ -46,15 +58,15 @@ def login_view(request):
     user = authenticate(request, username=username, password=password)
 
     if user is not None:
-      login(request,user)
-      return redirect('/')
+      login(request, user)
+      return redirect('index')
 
-    print(form)
     return render(request, 'accounts/login.html', {'form':form})
 
   form = AuthenticationForm()
   return render(request, 'accounts/login.html', {'form':form})
 
+@anonymous_required('index')
 def register_view(request):
   return render(request, 'accounts/register.html')
 

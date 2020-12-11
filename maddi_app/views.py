@@ -30,7 +30,7 @@ def create_item_view(request):
   else:
     form = ItemForm(None)
 
-  return render(request, 'maddi_app/add.html', {
+  return render(request, 'maddi_app/item/add.html', {
     'form': form,
   })
 

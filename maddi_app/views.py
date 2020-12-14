@@ -22,22 +22,41 @@ def shop(request):
   })
 
 def create_item_view(request):
+  form = ItemForm(request.POST or None, request.FILES or None)
   if request.method == 'POST':
-    form = ItemForm(request.POST, request.FILES)
     if form.is_valid():
       form.save()
       return redirect('shop')
-  else:
-    form = ItemForm(None)
 
   return render(request, 'maddi_app/item/add.html', {
     'form': form,
   })
 
 def retrieve_item_view(request, id):
-  item = Item.objects.get(pk=id)
+  try:
+    item = Item.objects.get(pk=id)
+  except item.DoesNotExist:
+    return redirect('shop')
+
   return render(request, 'maddi_app/item/retrieve.html', {
     'item': item,
+  })
+
+def update_item_view(request, id):
+  try:
+    item = Item.objects.get(pk=id)
+  except Item.DoesNotExist:
+    return redirect('shop')
+    
+  form = ItemForm(request.POST or None, request.FILES or None, instance=item)
+
+  if request.method == 'POST':
+    if form.is_valid():
+      form.save()
+      return redirect('shop')
+
+  return render(request, 'maddi_app/item/add.html', {
+    'form': form,
   })
 
 def payment(request):

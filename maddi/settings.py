@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_tailwind',
     'smartfields',
+    'user_unique_email',
     'maddi_app',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+AUTH_USER_MODEL = 'user_unique_email.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

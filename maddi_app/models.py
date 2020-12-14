@@ -1,9 +1,9 @@
+from django.contrib.auth import get_user_model
 from django.db import models
-from django.contrib.auth.models import User
 from smartfields import fields
 
 class Customer(models.Model):
-  user = models.OneToOneField(User, on_delete=models.CASCADE)
+  user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
   phone_number = models.CharField(max_length=12)
   address = models.CharField(max_length=250)
   city = models.PositiveIntegerField()
@@ -13,7 +13,7 @@ class Customer(models.Model):
     return self.user.get_full_name()
 
 class News(models.Model):
-  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
   title = models.CharField(max_length=40)
   body = models.TextField()
   image = fields.ImageField(upload_to='news')

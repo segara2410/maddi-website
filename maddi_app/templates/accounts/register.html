@@ -1,6 +1,7 @@
 {% extends 'layouts/base_auth.html' %}
 
 {% load static %}
+{% load tailwind_filters %}
 
 {% block content %}
 <header class="max-w-lg mx-auto">
@@ -19,22 +20,9 @@
 
     <section class="mt-10">
         <form class="flex flex-col" method="POST">
-            <div class="mb-6 pt-3 rounded bg-gray-200">
-                <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="fname">First name</label>
-                <input type="text" id="fname" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-maddi-1 transition duration-500 px-3 pb-3">
-            </div>
-            <div class="mb-6 pt-3 rounded bg-gray-200">
-                <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="lname">Last name</label>
-                <input type="text" id="lname" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-maddi-1 transition duration-500 px-3 pb-3">
-            </div>
-            <div class="mb-6 pt-3 rounded bg-gray-200">
-                <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="email">Email</label>
-                <input type="text" id="email" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-maddi-1 transition duration-500 px-3 pb-3">
-            </div>
-            <div class="mb-6 pt-3 rounded bg-gray-200">
-                <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="password">Password</label>
-                <input type="password" id="password" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-maddi-1 transition duration-500 px-3 pb-3">
-            </div>
+            {% csrf_token %}
+            {{ user_form|crispy }}
+            {{ customer_form|crispy }}
             <button class="bg-maddi-1 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit">Sign Up</button>
         </form>
     </section>

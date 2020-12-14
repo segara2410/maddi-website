@@ -93,7 +93,25 @@ def login_view(request):
 
 @anonymous_required('index')
 def register_view(request):
-  return render(request, 'accounts/register.html')
+  user_form = UserForm(request.POST or None, prefix='user')
+  customer_form = CustomerForm(request.POST or None, prefix='customer')
+
+  if request.method == 'POST':
+    if user_form.is_valid():
+      user = user_form.save()
+
+      if customer_form.is_valid():
+        customer = customer_form.save(commit=False)
+        customer.user_id = user.id
+        customer.save()
+
+        return redirect('login')
+
+  context = {
+    'user_form': user_form,
+    'customer_form': customer_form
+  }
+  return render(request, 'accounts/register.html', context)
 
 def logout_view(request):
   logout(request)

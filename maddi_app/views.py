@@ -117,7 +117,19 @@ def logout_view(request):
   logout(request)
   return redirect('/')
 
-def province(request, id=None):
+def provinces(request):
+  conn = http.client.HTTPSConnection("api.rajaongkir.com")
+
+  headers = { 'key': "833e8c949f70274cf9632f00c45919a8" }
+
+  conn.request("GET", "/starter/province", headers=headers)
+
+  res = conn.getresponse()
+  data = res.read()
+
+  return HttpResponse(data.decode("utf-8"))
+
+def cities(request, id=None):
   conn = http.client.HTTPSConnection("api.rajaongkir.com")
 
   headers = { 'key': "833e8c949f70274cf9632f00c45919a8" }

@@ -6,6 +6,7 @@ from django.forms import ModelForm
 from .models import *
 
 class UserForm(ModelForm):
+  password = forms.CharField(widget=forms.PasswordInput())
   first_name = forms.CharField(required=True)
   last_name = forms.CharField(required=True)
 

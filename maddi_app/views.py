@@ -21,6 +21,7 @@ def shop(request):
     'items': items,
   })
 
+@staff_required('index')
 def create_item_view(request):
   form = ItemForm(request.POST or None, request.FILES or None)
   if request.method == 'POST':
@@ -42,6 +43,7 @@ def retrieve_item_view(request, id):
     'item': item,
   })
 
+@staff_required('index')
 def update_item_view(request, id):
   try:
     item = Item.objects.get(pk=id)
@@ -58,6 +60,16 @@ def update_item_view(request, id):
   return render(request, 'maddi_app/item/add.html', {
     'form': form,
   })
+
+@staff_required('index')
+def delete_item_view(request, id):
+  try:
+    item = Item.objects.get(pk=id)
+  except item.DoesNotExist:
+    return redirect('shop')
+
+  item.delete()
+  return redirect('shop')
 
 def payment(request):
   return render(request, 'maddi_app/payment.html')

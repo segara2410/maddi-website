@@ -8,6 +8,7 @@ urlpatterns = [
   path("item/add", views.create_item_view, name="add_item"),
   path("item/<int:id>", views.retrieve_item_view, name="retrieve_item"),
   path("item/update/<int:id>", views.update_item_view, name="update_item"),
+  path("item/delete/<int:id>", views.delete_item_view, name="delete_item"),
   path("payment", views.payment, name="payment"),
   path("journal", views.journal, name="journal"),
   path("about", views.about, name="about"),

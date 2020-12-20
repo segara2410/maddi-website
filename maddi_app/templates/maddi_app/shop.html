@@ -51,15 +51,29 @@
       </div>
       {% endfor %}
     </div>
-        <div class="flex justify-center">
-          <div class="flex rounded-md mt-8">
-            <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-gray-700 border-r-0 ml-0 rounded-l hover:bg-yellow-500 hover:text-white"><span>Previous</a></a>
-            <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-gray-700 border-r-0 hover:bg-yellow-500 hover:text-white"><span>1</span></a>
-            <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-gray-700 border-r-0 hover:bg-yellow-500 hover:text-white"><span>2</span></a>
-            <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-gray-700 border-r-0 hover:bg-yellow-500 hover:text-white"><span>3</span></a>
-            <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-gray-700 rounded-r hover:bg-yellow-500 hover:text-white"><span>Next</span></a>
-          </div>
+    {% if items.has_other_pages %}
+      <div class="flex justify-center">
+        <div class="flex rounded-md mt-8">
+          {% if items.has_previous %}
+            <a href="?page={{ items.previous_page_number }}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-gray-500 border-r-0 ml-0 rounded-l hover:bg-yellow-500 hover:text-gray-600"><span>Previous</span></a>
+          {% else %}
+            <div class="py-2 px-4 leading-tight bg-white border border-gray-200 text-black border-r-0 ml-0 rounded-l"><span>Previous</span></div>
+          {% endif %}
+          {% for i in items.paginator.page_range %}
+            {% if items.number == i %}
+              <div class="py-2 px-4 leading-tight bg-white border border-gray-200 text-black border-r-0"><span>{{ i }}</span></div>
+            {% else %}
+              <a href="?page={{ i }}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-gray-500 border-r-0 hover:bg-yellow-500 hover:text-gray-600"><span>{{ i }}</span></a>
+            {% endif %}
+          {% endfor %}
+          {% if items.has_next %}
+            <a href="?page={{ items.next_page_number }}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-gray-500 rounded-r hover:bg-yellow-500 hover:text-gray-600"><span>Next</span></a>
+          {% else %}
+            <div class="py-2 px-4 leading-tight bg-white border border-gray-200 text-black rounded-r"><span>Next</span></div>
+          {% endif %}
         </div>
+      </div>
+    {% endif %}
   </div>
 
 {% endblock %}

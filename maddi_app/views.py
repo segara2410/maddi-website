@@ -2,6 +2,7 @@ from django import template
 from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
@@ -16,7 +17,17 @@ def index(request):
   return render(request, 'maddi_app/index.html')
 
 def shop(request):
-  items = Item.objects.all()
+  item_list = Item.objects.all()
+  paginator = Paginator(item_list, 12)
+
+  page = request.GET.get('page', 1)
+  try:
+    items = paginator.page(page)
+  except PageNotAnInteger:
+    items = paginator.page(1)
+  except EmptyPage:
+    items = paginator.page(paginator.num_pages)
+
   return render(request, 'maddi_app/shop.html', {
     'items': items,
   })

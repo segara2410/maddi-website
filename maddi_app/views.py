@@ -54,6 +54,23 @@ def retrieve_item_view(request, id):
     'item': item,
   })
 
+def user(request):
+  User = get_user_model()
+  user_list = User.objects.all()
+  paginator = Paginator(user_list, 10)
+
+  page = request.GET.get('page', 1)
+  try:
+    users = paginator.page(page)
+  except PageNotAnInteger:
+    users = paginator.page(1)
+  except EmptyPage:
+    users = paginator.page(paginator.num_pages)
+
+  return render(request, 'maddi_app/user.html', {
+    'users': users,
+  })
+
 @staff_required('index')
 def update_item_view(request, id):
   try:

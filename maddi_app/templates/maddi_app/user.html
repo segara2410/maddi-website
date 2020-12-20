@@ -1,0 +1,9 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+  {% for user in users %}
+    {{ user.username }}
+  {% endfor %}
+{% endblock %}

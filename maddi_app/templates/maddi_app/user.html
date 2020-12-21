@@ -3,7 +3,44 @@
 {% load static %}
 
 {% block content %}
-  {% for user in users %}
-    {{ user.username }}
-  {% endfor %}
+<div class="container mx-auto px-6 my-8">
+  <h2 class="mb-8 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">Users List</h2>
+  <table class="border-collapse w-full">
+    <thead>
+        <tr>
+            <th class="p-3 font-bold uppercase bg-maddi-1 text-white border border-black hidden lg:table-cell">ID</th>
+            <th class="p-3 font-bold uppercase bg-maddi-1 text-white border border-black lg:table-cell">User</th>
+            <th class="p-3 font-bold uppercase bg-maddi-1 text-white border border-black lg:table-cell">Status</th>
+            <th class="p-3 font-bold uppercase bg-maddi-1 text-white border border-black lg:table-cell">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">ID</span>
+            {{ user.id }}
+        </td>
+        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">User</span>
+            {{ user.username }}
+        </td>
+        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Status</span>
+            {% if user.is_active == 1 %}
+              <span class="rounded bg-green-400 py-1 px-3 text-xs font-bold">active</span>
+            {% else %}
+              <span class="rounded bg-red-400 py-1 px-3 text-xs font-bold">deleted</span>
+            {% endif %}
+        </td>
+        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
+            <a href="#" class="text-blue-400 hover:text-blue-600 underline">Edit</a>
+            <a href="#" class="text-blue-400 hover:text-blue-600 underline pl-6">Remove</a>
+        </td>
+    </tr>
+      {% endfor %}
+    </tbody>
+</table>
+</div>
 {% endblock %}

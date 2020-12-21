@@ -10,7 +10,8 @@
         <tr>
             <th class="p-3 font-bold uppercase bg-maddi-1 text-white border border-black hidden lg:table-cell">ID</th>
             <th class="p-3 font-bold uppercase bg-maddi-1 text-white border border-black lg:table-cell">User</th>
-            <th class="p-3 font-bold uppercase bg-maddi-1 text-white border border-black lg:table-cell">Status</th>
+            <th class="p-3 font-bold uppercase bg-maddi-1 text-white border border-black lg:table-cell">Name</th>
+            <th class="p-3 font-bold uppercase bg-maddi-1 text-white border border-black lg:table-cell">Role</th>
             <th class="p-3 font-bold uppercase bg-maddi-1 text-white border border-black lg:table-cell">Actions</th>
         </tr>
     </thead>
@@ -26,17 +27,33 @@
             {{ user.username }}
         </td>
         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Status</span>
-            {% if user.is_active == 1 %}
-              <span class="rounded bg-green-400 py-1 px-3 text-xs font-bold">active</span>
-            {% else %}
-              <span class="rounded bg-red-400 py-1 px-3 text-xs font-bold">deleted</span>
-            {% endif %}
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Name</span>
+            {{ user.first_name }} {{ user.last_name }}
         </td>
         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+          <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Role</span>
+          {% if user.is_superuser == 1 %}
+          Superuser
+          {% elif user.is_staff == 1 %}
+          Staff
+          {% else %}
+          Customer
+          {% endif %}
+      </td>
+        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
-            <a href="#" class="text-blue-400 hover:text-blue-600 underline">Edit</a>
-            <a href="#" class="text-blue-400 hover:text-blue-600 underline pl-6">Remove</a>
+            <button
+          type="button"
+          class="border border-yellow-500 text-black rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:text-white hover:bg-yellow-500 focus:outline-none focus:shadow-outline"
+        >
+          Edit
+        </button>
+        <button
+          type="button"
+          class="border border-red-500 text-black rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:text-white hover:bg-red-500 focus:outline-none focus:shadow-outline"
+        >
+          Remove
+        </button>
         </td>
     </tr>
       {% endfor %}

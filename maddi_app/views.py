@@ -2,6 +2,7 @@ from django import template
 from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.hashers import make_password
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -111,6 +112,15 @@ def about(request):
 def cart(request):
   return render(request, 'maddi_app/cart.html')
 
+@login_required(login_url='login')
+def add_to_cart(request):
+  item = Item.objects.get(pk=request.POST.get('id'))
+  print(item.price)
+  cart = Cart(item=item, message=request.POST.get('message') or None, quantity=request.POST.get('quantity'), total_price=(item.price * int(request.POST.get('quantity'))), customer=request.user.customer)
+  cart.save()
+
+  return redirect('cart')
+
 @anonymous_required('index')
 def login_view(request):
   if request.user.is_authenticated:
@@ -138,7 +148,10 @@ def register_view(request):
 
   if request.method == 'POST':
     if user_form.is_valid():
-      user = user_form.save()
+      password = make_password(user_form.cleaned_data['password'])
+      user = user_form.save(commit=False)
+      user.password = password
+      user.save()
 
       if customer_form.is_valid():
         customer = customer_form.save(commit=False)

@@ -14,6 +14,7 @@ urlpatterns = [
   path("journal", views.journal, name="journal"),
   path("about", views.about, name="about"),
   path("cart", views.cart, name="cart"),
+  path("add_to_cart", views.add_to_cart, name="add_to_cart"),
   path("login", views.login_view, name="login"),
   path("register", views.register_view, name="register"),
   path("logout", views.logout_view, name="logout"),

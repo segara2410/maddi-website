@@ -65,10 +65,11 @@ class Purchase(models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
 
 class Cart(models.Model):
-  purchase = models.ForeignKey(Purchase, on_delete=models.CASCADE)
+  customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+  purchase = models.ForeignKey(Purchase, null=True, on_delete=models.CASCADE)
   item = models.ForeignKey(Item, on_delete=models.CASCADE)
   quantity = models.IntegerField()
-  message = models.TextField()
+  message = models.TextField(null=True)
   total_price = models.BigIntegerField()
 
 class Shipping(models.Model):

@@ -110,7 +110,20 @@ def about(request):
   return render(request, 'maddi_app/about.html')
 
 def cart(request):
-  return render(request, 'maddi_app/cart.html')
+  cart_list = Cart.objects.filter(customer=request.user.customer)
+  paginator = Paginator(cart_list, 10)
+
+  page = request.GET.get('page', 1)
+  try:
+    carts = paginator.page(page)
+  except PageNotAnInteger:
+    carts = paginator.page(1)
+  except EmptyPage:
+    carts = paginator.page(paginator.num_pages)
+
+  return render(request, 'maddi_app/cart.html', {
+    'carts': carts,
+  })
 
 @login_required(login_url='login')
 def add_to_cart(request):

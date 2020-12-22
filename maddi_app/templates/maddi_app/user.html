@@ -8,56 +8,79 @@
   <table class="border-collapse w-full">
     <thead>
         <tr>
-            <th class="p-3 font-bold uppercase bg-maddi-1 text-white border border-black hidden lg:table-cell">ID</th>
-            <th class="p-3 font-bold uppercase bg-maddi-1 text-white border border-black lg:table-cell">User</th>
-            <th class="p-3 font-bold uppercase bg-maddi-1 text-white border border-black lg:table-cell">Name</th>
-            <th class="p-3 font-bold uppercase bg-maddi-1 text-white border border-black lg:table-cell">Role</th>
-            <th class="p-3 font-bold uppercase bg-maddi-1 text-white border border-black lg:table-cell">Actions</th>
+            <th class="p-3 text-center font-bold uppercase bg-maddi-1 text-white border border-black hidden lg:table-cell">ID</th>
+            <th class="p-3 text-center font-bold uppercase bg-maddi-1 text-white border border-black lg:table-cell">User</th>
+            <th class="p-3 text-center font-bold uppercase bg-maddi-1 text-white border border-black lg:table-cell">Name</th>
+            <th class="p-3 text-center font-bold uppercase bg-maddi-1 text-white border border-black lg:table-cell">Role</th>
+            <th class="p-3 text-center font-bold uppercase bg-maddi-1 text-white border border-black lg:table-cell">Actions</th>
         </tr>
     </thead>
     <tbody>
       {% for user in users %}
-      <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">ID</span>
-            {{ user.id }}
-        </td>
-        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">User</span>
-            {{ user.username }}
-        </td>
-        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Name</span>
-            {{ user.first_name }} {{ user.last_name }}
-        </td>
-        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-          <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Role</span>
-          {% if user.is_superuser == 1 %}
-          Superuser
-          {% elif user.is_staff == 1 %}
-          Staff
-          {% else %}
-          Customer
-          {% endif %}
-      </td>
-        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+        <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+              <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">ID</span>
+              {{ user.id }}
+          </td>
+          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+              <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">User</span>
+              {{ user.username }}
+          </td>
+          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+              <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Name</span>
+              {{ user.first_name }} {{ user.last_name }}
+          </td>
+          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+              <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Role</span>
+              {% if user.is_superuser == 1 %}
+                Superuser
+              {% elif user.is_staff == 1 %}
+                Staff
+              {% else %}
+                Customer
+              {% endif %}
+          </td>
+          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
             <button
-          type="button"
-          class="border border-yellow-500 text-black rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:text-white hover:bg-yellow-500 focus:outline-none focus:shadow-outline"
-        >
-          Edit
-        </button>
-        <button
-          type="button"
-          class="border border-red-500 text-black rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:text-white hover:bg-red-500 focus:outline-none focus:shadow-outline"
-        >
-          Remove
-        </button>
-        </td>
-    </tr>
+              type="button"
+              class="border border-yellow-500 text-black rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:text-white hover:bg-yellow-500 focus:outline-none focus:shadow-outline"
+            >
+              Edit
+            </button>
+            <button
+              type="button"
+              class="border border-red-500 text-black rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:text-white hover:bg-red-500 focus:outline-none focus:shadow-outline"
+            >
+              Remove
+            </button>
+          </td>
+        </tr>
       {% endfor %}
     </tbody>
-</table>
+  </table>
+  {% if users.has_other_pages %}
+    <div class="flex justify-center">
+      <div class="flex rounded-md mt-8">
+        {% if users.has_previous %}
+          <a href="?page={{ users.previous_page_number }}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-gray-500 border-r-0 ml-0 rounded-l hover:bg-yellow-500 hover:text-gray-600"><span>Previous</span></a>
+        {% else %}
+          <div class="py-2 px-4 leading-tight bg-white border border-gray-200 text-black border-r-0 ml-0 rounded-l"><span>Previous</span></div>
+        {% endif %}
+        {% for i in users.paginator.page_range %}
+          {% if users.number == i %}
+            <div class="py-2 px-4 leading-tight bg-white border border-gray-200 text-black border-r-0"><span>{{ i }}</span></div>
+          {% else %}
+            <a href="?page={{ i }}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-gray-500 border-r-0 hover:bg-yellow-500 hover:text-gray-600"><span>{{ i }}</span></a>
+          {% endif %}
+        {% endfor %}
+        {% if users.has_next %}
+          <a href="?page={{ users.next_page_number }}" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-gray-500 rounded-r hover:bg-yellow-500 hover:text-gray-600"><span>Next</span></a>
+        {% else %}
+          <div class="py-2 px-4 leading-tight bg-white border border-gray-200 text-black rounded-r"><span>Next</span></div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
 </div>
 {% endblock %}

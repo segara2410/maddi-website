@@ -4,5 +4,6 @@ django-heroku
 django-material
 django-mysql
 django-smartfields
+django-user-unique-email
 gunicorn
 mysqlclient

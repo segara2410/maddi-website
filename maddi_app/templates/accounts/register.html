@@ -1,6 +1,7 @@
 {% extends 'layouts/base_auth.html' %}
 
 {% load static %}
+{% load tailwind_filters %}
 
 {% block content %}
 <header class="max-w-lg mx-auto">
@@ -11,7 +12,7 @@
     </a>
 </header>
 
-<main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
+<main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl" x-data="cities()" x-init="loadProvinces()">
     <section>
         <h3 class="font-bold text-2xl">Sign up</h3>
         <p class="text-gray-600 pt-2">Creating an account will allow you to save your shipping details, make checkout faster and view your purchase history.</p>
@@ -19,22 +20,33 @@
 
     <section class="mt-10">
         <form class="flex flex-col" method="POST">
-            <div class="mb-6 pt-3 rounded bg-gray-200">
-                <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="fname">First name</label>
-                <input type="text" id="fname" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-maddi-1 transition duration-500 px-3 pb-3">
+            {% csrf_token %}
+            {{ user_form|crispy }}
+            {{ customer_form.phone_number|as_crispy_field }}
+            {{ customer_form.address|as_crispy_field }}
+            <div id="div_id_customer-province" class="mb-3"> 
+                <label for="id_customer-province" class="block text-gray-700 text-sm font-bold mb-2">
+                    Province<span class="asteriskField">*</span> 
+                </label> 
+                <select x-model="selectedProvince" x-on:change="loadCities()">
+                    <template x-for="province in provinces" :key="province">
+                        <option :value="province.province_id" x-text="province.province"></option>
+                    </template>
+                </select>
             </div>
-            <div class="mb-6 pt-3 rounded bg-gray-200">
-                <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="lname">Last name</label>
-                <input type="text" id="lname" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-maddi-1 transition duration-500 px-3 pb-3">
-            </div>
-            <div class="mb-6 pt-3 rounded bg-gray-200">
-                <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="email">Email</label>
-                <input type="text" id="email" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-maddi-1 transition duration-500 px-3 pb-3">
-            </div>
-            <div class="mb-6 pt-3 rounded bg-gray-200">
-                <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="password">Password</label>
-                <input type="password" id="password" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-maddi-1 transition duration-500 px-3 pb-3">
-            </div>
+            <template x-if="cities.length > 0">
+                <div id="div_id_customer-city" class="mb-3"> 
+                    <label for="id_customer-city" class="block text-gray-700 text-sm font-bold mb-2">
+                        City<span class="asteriskField">*</span> 
+                    </label>
+                    <select name="customer-city" x-model="selectedCity">
+                        <template x-for="city in cities" :key="city">
+                            <option :value="city.city_id" x-text="city.city_name"></option>
+                        </template>
+                    </select>
+                </div>
+            </template>
+            {{ customer_form.postal_code|as_crispy_field }}
             <button class="bg-maddi-1 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit">Sign Up</button>
         </form>
     </section>
@@ -50,4 +62,39 @@
         </button>
     </section>
 </footer>
+{% endblock %}
+
+{% block js %}
+<script>
+    function cities() {
+        return {
+            selectedProvince: 1,
+            selectedCity: 0,
+            provinces: [],
+            cities: [],
+            loadProvinces() {
+                let self = this;
+                axios.get('http://127.0.0.1:8000/provinces/').then(function (response) {
+                    // handle success
+                    self.provinces = response.data.rajaongkir.results;
+                    self.loadCities();
+                }).catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+            },
+            loadCities() {
+                let self = this;
+                self.cities = [];
+                axios.get('http://127.0.0.1:8000/cities/' + self.selectedProvince).then(function (response) {
+                    // handle success
+                    self.cities = response.data.rajaongkir.results;
+                }).catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+            },
+        }
+    }
+</script>
 {% endblock %}

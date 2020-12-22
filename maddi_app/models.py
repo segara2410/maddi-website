@@ -1,9 +1,9 @@
+from django.contrib.auth import get_user_model
 from django.db import models
-from django.contrib.auth.models import User
 from smartfields import fields
 
 class Customer(models.Model):
-  user = models.OneToOneField(User, on_delete=models.CASCADE)
+  user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
   phone_number = models.CharField(max_length=12)
   address = models.CharField(max_length=250)
   city = models.PositiveIntegerField()
@@ -13,7 +13,7 @@ class Customer(models.Model):
     return self.user.get_full_name()
 
 class News(models.Model):
-  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
   title = models.CharField(max_length=40)
   body = models.TextField()
   image = fields.ImageField(upload_to='news')
@@ -65,10 +65,11 @@ class Purchase(models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
 
 class Cart(models.Model):
-  purchase = models.ForeignKey(Purchase, on_delete=models.CASCADE)
+  customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+  purchase = models.ForeignKey(Purchase, null=True, on_delete=models.CASCADE)
   item = models.ForeignKey(Item, on_delete=models.CASCADE)
   quantity = models.IntegerField()
-  message = models.TextField()
+  message = models.TextField(null=True)
   total_price = models.BigIntegerField()
 
 class Shipping(models.Model):
